@@ -1,0 +1,4 @@
+/* CSS declarations go here */
+.moreBorder{
+  border: 5px solid red !important;
+}

@@ -1,0 +1,47 @@
+{
+    "environment": "dev", 
+    "appAdmin": "user1",
+    "public": {
+        "appName": "Some Conf 2015",
+        "firstDate": "2015-12-01T10:00:00",
+        "hiddenDays": [ 0, 1, 6 ],
+        "lang": "fr",
+        "cas": {
+            "loginUrl": "https://auth.univ.fr/login",
+            "serviceParam": "service",
+            "popupWidth": 810,
+            "popupHeight": 610
+        }
+    },
+    "default": {
+        "users": [
+            {"name":"Normal User", "email":"normal@a.org", "roles":[]},
+            {"name":"View-Secrets User", "email":"view@a.org", "roles":["view-secrets"]},
+            {"name":"Manage-Users User", "email":"manage@a.org", "roles":["manage-users"]},
+            {"name":"Admin User", "email":"admin@a.org", "roles":["admin"]}
+            ],
+        "password": "thisIsaTest"
+    },
+    "cas": {
+        "baseUrl": "https://auth.univ.fr/",
+        "autoClose": true
+    },
+    "ldap": {
+        "url": "ldap://ldap.univ.fr",
+        "base": "ou=people,dc=univ,dc=fr",
+        "timeout": 1000,
+        "bindDn": "",
+        "bindSecret": "",
+        "filter": "(&(uid=%uid)(objectClass=inetOrgPerson))",
+        "scope": "one",
+        "nameAttribute": "displayName",
+        "mailAttribute": "mail",
+        "forceUsername": true,
+        "throwError": true,
+        "skipBindError": true,
+        "supportedServices": [
+            "cas"
+        ]
+    }
+}
+

@@ -1,0 +1,141 @@
+
+<template name="start">
+  {{> header }}
+<div class="container">
+
+<span class="reload clickable btn btn-primary btn-fab btn-raised mdi-navigation-refresh" style="float:right;" data-toggle="tooltip" data-placement="bottom" title="Refresh"></span>
+
+  <h1>Conf Calendar</h1>
+
+    {{> calendar}}
+
+    {{> dialog}}
+</div>
+</template>
+
+
+
+<template name="calendar">
+  <div id="calendar"></div>
+</template>
+
+<template name="dialog">
+  <div id="eventModifyModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Update an event</h3>
+      <i>{{event.title}}</i><br />
+      <strong>{{event.className}}</strong>
+    </div>
+    <br />
+    <div class="modal-body">
+      <form>
+        {{#if isInRole 'admin'}}
+          <input type="checkbox" name="event-toreport" id="event-toreport" checked="{{event.toreport}}">
+          Demande de Compte rendu<BR />
+        {{/if}}
+          <input type="checkbox" name="event-report" id="event-report" checked="{{checkreport}}">
+          Compte rendu ({{event.report}})<BR />
+          <input type="checkbox" name="event-toview" id="event-toview" checked="{{checkview}}">
+          À voir ({{event.view}}) <BR />
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal">Cancel</button>
+      <button class="btn btn-primary save">Save</button>
+    </div>
+  </div>
+  </div>
+  </div>
+</template>
+
+
+<template name="myconf">
+  {{> header }}
+<div class="container">
+<h1>My conf</h1>
+
+<ul>
+{{#each events}}
+<li>  {{dateFormat start format="dddd LT"}}</li>
+ <ul>
+ <li>
+ {{#if checkreport}} ★ {{/if}}
+ <strong>{{className}}</strong> <i>{{title}}</i>
+ {{#if checkreport}} ★ {{/if}}
+ </li>
+ </ul>
+{{/each}}
+</ul>
+</div>
+</template>
+
+
+<!--
+
+// Admin page to manage roles
+
+-->
+<template name="admin">
+  {{> header}}
+
+  <h3>Manage users and roles</h3>
+   <div class="container">
+    {{> accountsAdmin}}
+   </div>
+</template>
+
+<!-- 
+
+// signin page
+
+  -->
+<template name="signin">
+ <div class="jumbotron">
+  <h1>Bienvenue</h1>
+  <p>Pour accéder à cette application vous devez être identifié</p>
+  <p>
+   <a class="btn btn-primary login-btn" role="button">Se connecter</a>
+  </p>
+ </div>
+ Local user (insecure clear text!) :  {{> loginButtons}}
+</template>
+
+<!-- 
+
+// various
+
+  -->
+
+<template name="loading">
+  <h1><i class="fa fa-spinner fa-spin"></i>  Loading...</h1>
+</template>
+
+<template name="not_found">
+  <h3>404 - Not found</h3>
+</template>
+
+<template name="invalid-access">
+  <h3>403 Forbidden - Invalid Access</h3>
+</template>
+
+<template name="header">
+ <div class="navbar navbar-default" role="navigation">
+  <div class="navbar-header">
+    <a class="navbar-brand" href="/">{{appName}}</a>
+  </div>
+  <div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+            {{#if isInRole 'admin'}}
+            <li><a href="/admin">Admin</a></li>
+            {{/if}}
+            <li><a href="/myconf">myConf</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+       {{> loginButtons }}
+    </ul>
+  </div>
+ </div>
+</template>
